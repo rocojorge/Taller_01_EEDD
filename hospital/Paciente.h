@@ -10,6 +10,7 @@ private:
     std::string servicio;
 
 public:
+    Paciente();
     Paciente(const std::string& id, const std::string& nombre, int edad,
         const std::string& servicio);
 

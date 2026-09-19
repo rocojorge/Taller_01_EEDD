@@ -1,16 +1,9 @@
 #include "Persona.h"
-#include <string>
 
-class Persona {
-private:
-    std::string nombre;
-    int edad;
+Persona::Persona() : nombre(""), edad(0) {}
 
-public:
-    Persona(const std::string& nombre, int edad);
-    virtual ~Persona();
+Persona::Persona(const std::string& nombre, int edad) : nombre(nombre), edad(edad) {}
+Persona::~Persona() = default;
 
-    const std::string& getNombre() const;
-    int getEdad() const;
-    virtual std::string resumen() const = 0;
-};
+const std::string& Persona::getNombre() const { return nombre; }
+int Persona::getEdad() const { return edad; }

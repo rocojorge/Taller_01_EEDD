@@ -1,5 +1,8 @@
 #include "Paciente.h"
+#include <string>
 
+
+Paciente::Paciente() : Persona(), id(""), servicio("") {}
 Paciente::Paciente(const std::string& id, const std::string& nombre, int edad,
     const std::string& servicio)
     : Persona(nombre, edad), id(id), servicio(servicio) {}
