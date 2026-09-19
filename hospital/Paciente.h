@@ -18,5 +18,3 @@ public:
     const std::string& getServicio() const;
     std::string resumen() const override;
 };
-
-#endif

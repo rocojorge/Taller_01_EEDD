@@ -37,4 +37,6 @@ hospital/
 	└── .gitignore
 
 # Todo esto es idea de ChatGPT, vamos a ello
+
+#Para poder abrir del tirón el archivo de pacientes.txt, se debe hardcodear la ruta en el terminal. 
 	
