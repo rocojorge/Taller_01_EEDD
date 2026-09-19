@@ -1,0 +1,8 @@
+101; Valentina Castro; 30; Urgencias
+102; Error Edad; abc; Cirugia
+103; Servicio Incorrecto; 40; Dermatologia
+101; Paciente Duplicado; 22; Pediatria
+104; Falta Servicio; 28
+105; Edad Fuera De Rango; 150; Neurologia
+; Sin Identificador; 33; Cardiologia
+106; Registro Valido Final; 41; Hospitalizacion

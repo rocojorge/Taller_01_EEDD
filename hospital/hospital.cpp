@@ -1,20 +1,68 @@
-// hospital.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
+#include "Hospital_.h"
 
 #include <iostream>
-#include "Hospital.h"
+#include <limits>
+#include <string>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+namespace {
+    bool leerEntero(const std::string& mensaje, int& valor) {
+        std::cout << mensaje;
+        if (std::cin >> valor) {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            return true;
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Entrada no valida.\n";
+        return false;
+    }
 }
 
-// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
-// Depurar programa: F5 o menú Depurar > Iniciar depuración
+int main(int argc, char* argv[]) {
+    std::string ruta;
+    if (argc >= 2) ruta = argv[1];
+    else {
+        std::cout << "Ruta del archivo de pacientes: ";
+        std::getline(std::cin, ruta);
+    }
 
-// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
-//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
-//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
-//   4. Use la ventana Lista de errores para ver los errores
-//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
-//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
+    Hospital hospital;
+    if (!hospital.cargarPacientes(ruta)) return 1;
+
+    int opcion = 0;
+    do {
+        std::cout << "\n=== HOSPITAL MARMAJA ===\n"
+            << "1. Ver y atender pacientes\n"
+            << "2. Ver departamento\n"
+            << "3. Revisar historial de atencion\n"
+            << "4. Buscar paciente por ID\n"
+            << "5. Salir\n";
+        if (!leerEntero("Seleccionar opcion: ", opcion)) continue;
+
+        if (opcion == 1) {
+            hospital.mostrarCola();
+            int cantidad;
+            if (leerEntero("Cantidad de pacientes a atender: ", cantidad)) hospital.atenderPacientes(cantidad);
+        }
+        else if (opcion == 2) {
+            hospital.mostrarServicios();
+            int departamento;
+            if (leerEntero("Seleccionar departamento: ", departamento)) hospital.mostrarDepartamento(departamento);
+        }
+        else if (opcion == 3) {
+            hospital.mostrarHistorial();
+        }
+        else if (opcion == 4) {
+            std::string id;
+            std::cout << "ID del paciente: ";
+            std::getline(std::cin, id);
+            hospital.buscarPacientePorId(id);
+        }
+        else if (opcion != 5) {
+            std::cout << "Opcion no valida.\n";
+        }
+    } while (opcion != 5);
+
+    std::cout << "Hasta luego. Memoria liberada correctamente al cerrar el programa.\n";
+    return 0;
+}

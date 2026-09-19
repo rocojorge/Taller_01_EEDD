@@ -1,0 +1,16 @@
+001; Ana Morales; 34; Urgencias
+002; Bruno Castillo; 51; Medicina General
+003; Camila Rojas; 29; Cardiologia
+004; Diego Perez; 42; Neurologia
+005; Elisa Gonzalez; 19; Traumatologia
+006; Fabian Soto; 63; Cirugia
+007; Gabriela Muñoz; 8; Pediatria
+008; Hector Silva; 72; Hospitalizacion
+009; Isabel Contreras; 45; Urgencias
+010; Javier Araya; 37; Medicina General
+011; Karla Fuentes; 56; Cardiologia
+012; Leonardo Torres; 31; Neurologia
+013; Marcela Diaz; 24; Traumatologia
+014; Nicolas Vera; 48; Cirugia
+015; Olivia Reyes; 5; Pediatria
+016; Pablo Martinez; 68; Hospitalizacion
