@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include "Hospital.h"
 
 int main()
 {
