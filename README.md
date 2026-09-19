@@ -39,4 +39,7 @@ hospital/
 # Todo esto es idea de ChatGPT, vamos a ello
 
 #Para poder abrir del tirón el archivo de pacientes.txt, se debe hardcodear la ruta en el terminal. 
+
+Habría que compilar el proyecto con CMake y luego ejecutar el binario generado.
+Con VS Community, se abrir el proyecto y compilarlo desde el IDE.
 	
