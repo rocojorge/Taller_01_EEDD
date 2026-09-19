@@ -5,8 +5,14 @@
 ColaPacientes::ColaPacientes() : frente(nullptr), final(nullptr), cantidad(0) {}
 
 ColaPacientes::~ColaPacientes() {
-    Paciente paciente("", "", 0, "");
-    while (desencolar(paciente)) {}
+    //Paciente paciente("", "", 0, "");
+    while (frente != nullptr) {
+		NodoCola* eliminado = frente;
+		frente = frente->siguiente;
+		delete eliminado;
+		--cantidad;
+    }
+	final = nullptr;
 }
 
 void ColaPacientes::encolar(const Paciente& paciente) {
