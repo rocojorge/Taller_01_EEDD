@@ -13,7 +13,7 @@ Gabriel Melero Montero 40017058-4 @rocojorge ICCI
 - Aritmetica de punteros para recorrer el catalogo fijo de servicios al crear y buscar servicios.
 
 # Estructuras de archivos:
-
+```text
 hospital/	
 	├──	hospital/
 	│		│	
@@ -35,11 +35,10 @@ hospital/
 	├── CMakeLists.txt
 	├── README.md
 	└── .gitignore
+```
 
-# Todo esto es idea de ChatGPT, vamos a ello
 
 #Para poder abrir del tirón el archivo de pacientes.txt, se debe hardcodear la ruta en el terminal. 
-
 Habría que compilar el proyecto con CMake y luego ejecutar el binario generado.
 Con VS Community, se abrir el proyecto y compilarlo desde el IDE.
 	
