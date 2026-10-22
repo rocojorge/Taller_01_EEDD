@@ -189,9 +189,11 @@ void Hospital::mostrarServicios() const {
             << " (" << actual->servicio.size() << " paciente(s))\n";
         actual = actual->siguiente;
     }
+	std::cout << opcion << ". Volver al menu principal\n";
 }
 
 void Hospital::mostrarDepartamento(int opcion) const {
+	if (opcion == CANTIDAD_SERVICIOS + 1) return; // Opción para volver al menú principal
     if (opcion < 1 || opcion > CANTIDAD_SERVICIOS) {
         std::cout << "Departamento no valido.\n";
         return;

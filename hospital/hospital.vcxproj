@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArbolDecision.cpp" />
     <ClCompile Include="ColaPacientes.cpp" />
     <ClCompile Include="HistorialAtenciones.cpp" />
     <ClCompile Include="hospital.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Servicio.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArbolDecision.h" />
     <ClInclude Include="ColaPacientes.h" />
     <ClInclude Include="HistorialAtenciones.h" />
     <ClInclude Include="Hospital_.h" />

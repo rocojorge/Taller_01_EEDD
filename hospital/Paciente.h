@@ -7,7 +7,17 @@
 class Paciente : public Persona {
 private:
     std::string id;
-    std::string servicio;
+    //std::string servicio; Eliminacion del atributo
+    float temperatura;
+    float presionArterial;
+    int dolor;
+    std::string tipoDolor;
+    bool trauma;
+	bool sintomasNeurologicos;
+	bool requiereCirugia;
+	int diasHospitalizado;
+
+
 
 public:
     Paciente();
