@@ -27,4 +27,13 @@ public:
     const std::string& getId() const;
     const std::string& getServicio() const;
     std::string resumen() const override;
+	bool getTrauma() const;
+	bool getSintomasNeurologicos() const;
+	bool getRequiereCirugia() const;
+	float getTemperatura() const;
+	float getPresionArterial() const;
+	int getDolor() const;
+	const std::string& getTipoDolor() const;
+	int getDiasHospitalizado() const;
+
 };

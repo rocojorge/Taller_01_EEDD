@@ -13,3 +13,43 @@ const std::string& Paciente::getServicio() const { return servicio; }
 std::string Paciente::resumen() const {
     return id + " - " + getNombre() + " (" + std::to_string(getEdad()) + ")";
 }
+
+bool Paciente::getTrauma() const
+{
+    return this->trauma;
+}
+
+bool Paciente::getSintomasNeurologicos() const
+{
+    return this->sintomasNeurologicos;
+}
+
+bool Paciente::getRequiereCirugia() const
+{
+    return this->requiereCirugia;
+}
+
+float Paciente::getTemperatura() const
+{
+    return this->temperatura;
+}
+
+float Paciente::getPresionArterial() const
+{
+    return this->presionArterial;
+}
+
+int Paciente::getDolor() const
+{
+    return this->dolor;
+}
+
+const std::string& Paciente::getTipoDolor() const
+{
+    return this->tipoDolor;
+}
+
+int Paciente::getDiasHospitalizado() const
+{
+    return this->diasHospitalizado;
+}
