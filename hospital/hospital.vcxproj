@@ -145,6 +145,7 @@
     <ClCompile Include="HistorialAtenciones.cpp" />
     <ClCompile Include="hospital.cpp" />
     <ClCompile Include="Hospital_.cpp" />
+    <ClCompile Include="NodoAVL.cpp" />
     <ClCompile Include="Paciente.cpp" />
     <ClCompile Include="Persona.cpp" />
     <ClCompile Include="Servicio.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="ColaPacientes.h" />
     <ClInclude Include="HistorialAtenciones.h" />
     <ClInclude Include="Hospital_.h" />
+    <ClInclude Include="NodoAVL.h" />
     <ClInclude Include="Paciente.h" />
     <ClInclude Include="Persona.h" />
     <ClInclude Include="Servicio.h" />

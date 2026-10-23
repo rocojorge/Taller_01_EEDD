@@ -11,7 +11,7 @@ ArbolDecision::~ArbolDecision() {
     raiz = nullptr;
 }
 
-void ArbolDecision::preOrden(NodoDecision* nodo) const{
+void const ArbolDecision::preOrden(NodoDecision* nodo) const{
     if (nodo == nullptr) return;
     if (nodo->esHoja()) 
 		std::cout << nodo->getServicio() << std::endl;
@@ -21,7 +21,7 @@ void ArbolDecision::preOrden(NodoDecision* nodo) const{
 	preOrden(nodo->getNo());    
 }
 
-void ArbolDecision::inOrden(NodoDecision* nodo) const{
+void const ArbolDecision::inOrden(NodoDecision* nodo) const{
 	if (nodo == nullptr) return;
 	inOrden(nodo->getSi());
 	if (nodo->esHoja())
@@ -31,7 +31,7 @@ void ArbolDecision::inOrden(NodoDecision* nodo) const{
 	inOrden(nodo->getNo());
 }
 
-void ArbolDecision::postOrden(NodoDecision* nodo) const {
+void const ArbolDecision::postOrden(NodoDecision* nodo) const {
     if (nodo == nullptr) return;
     postOrden(nodo->getSi());
     postOrden(nodo->getNo());

@@ -21,8 +21,8 @@ private:
         TipoPregunta tipo;
         std::string pregunta;
         std::string servicio;
-        NodoDecision* si;
-        NodoDecision* no;
+        NodoDecision* si; //Izquierda
+        NodoDecision* no; //Derecha
     public:
         // Constructor para nodos que hacen preguntas.
         NodoDecision(TipoPregunta tipo, const std::string& pregunta)
