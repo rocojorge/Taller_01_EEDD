@@ -1,4 +1,5 @@
 #include "ArbolDecision.h"
+#include <iostream>
 
 
 ArbolDecision::ArbolDecision() : raiz(nullptr) {
@@ -8,6 +9,37 @@ ArbolDecision::ArbolDecision() : raiz(nullptr) {
 ArbolDecision::~ArbolDecision() {
     liberar(raiz);
     raiz = nullptr;
+}
+
+void ArbolDecision::preOrden(NodoDecision* nodo) const{
+    if (nodo == nullptr) return;
+    if (nodo->esHoja()) 
+		std::cout << nodo->getServicio() << std::endl;
+    else
+		std::cout << nodo->getPregunta() << std::endl;
+    preOrden(nodo->getSi());
+	preOrden(nodo->getNo());    
+}
+
+void ArbolDecision::inOrden(NodoDecision* nodo) const{
+	if (nodo == nullptr) return;
+	inOrden(nodo->getSi());
+	if (nodo->esHoja())
+		std::cout << nodo->getServicio() << std::endl;
+	else
+		std::cout << nodo->getPregunta() << std::endl;
+	inOrden(nodo->getNo());
+}
+
+void ArbolDecision::postOrden(NodoDecision* nodo) const {
+    if (nodo == nullptr) return;
+    postOrden(nodo->getSi());
+    postOrden(nodo->getNo());
+    if (nodo->esHoja()) {
+        std::cout << nodo->getServicio() << std::endl;
+    } else {
+        std::cout << nodo->getPregunta() << std::endl;
+    }
 }
 
 void ArbolDecision::liberar(NodoDecision* nodo) {
@@ -64,8 +96,6 @@ void ArbolDecision::construirArbol() {
     sintomasNeurologicos->setNo(dolorPecho);
     dolorPecho->setSi(new NodoDecision("Cardiologia"));
     dolorPecho->setNo(new NodoDecision("Urgencias"));
-
-
     // Rama paciente rutinario.
 
     NodoDecision* esPediatrico = new NodoDecision(

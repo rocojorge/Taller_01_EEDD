@@ -3,6 +3,7 @@
 #include "ColaPacientes.h"
 #include "HistorialAtenciones.h"
 #include "Servicio.h"
+#include "ArbolDecision.h"
 
 #include <string>
 
@@ -23,6 +24,7 @@ private:
     NodoServicio* primerServicio;
     NodoServicio* ultimoServicio;
     ColaPacientes espera;
+    ArbolDecision arbolDecision;
     HistorialAtenciones historial;
 
     void crearServicios();

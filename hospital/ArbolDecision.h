@@ -23,7 +23,6 @@ private:
         std::string servicio;
         NodoDecision* si;
         NodoDecision* no;
-
     public:
         // Constructor para nodos que hacen preguntas.
         NodoDecision(TipoPregunta tipo, const std::string& pregunta)
@@ -106,6 +105,10 @@ private:
 public:
     ArbolDecision();
     ~ArbolDecision();
+
+	void const preOrden(NodoDecision* nodo) const;
+	void const inOrden(NodoDecision* nodo) const;
+	void const postOrden(NodoDecision* nodo) const;
 
     ArbolDecision(const ArbolDecision&) = delete;
     ArbolDecision& operator=(const ArbolDecision&) = delete;
