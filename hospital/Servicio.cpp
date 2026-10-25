@@ -19,10 +19,8 @@ const std::string& Servicio::getNombre() const { return nombre; }
 int Servicio::size() const { return cantidad; }
 
 void Servicio::agregarPaciente(const Paciente& paciente) {
-    NodoPaciente* nuevo = new NodoPaciente(paciente);
-    if (ultimo == nullptr) primero = nuevo;
-    else ultimo->siguiente = nuevo;
-    ultimo = nuevo;
+    //arbolPacientes.insertar(paciente); EN construcción
+  
     ++cantidad;
 }
 

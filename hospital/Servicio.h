@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Paciente.h"
-
 #include <string>
+#include "AVL.h"
 
 class Servicio {
 private:
@@ -16,8 +15,9 @@ private:
     };
 
     std::string nombre;
-    NodoPaciente* primero;
-    NodoPaciente* ultimo;
+    //NodoPaciente* primero;
+    //NodoPaciente* ultimo;
+    AVL arbolPacientes;
     int cantidad;
     
 
