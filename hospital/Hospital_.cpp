@@ -288,3 +288,26 @@ void Hospital::buscarPacientePorId(const std::string& id) const {
     }
     std::cout << "No existe un paciente con ID " << id << ".\n";
 }
+
+void Hospital::buscarPacientePorNombre(const std::string& nombre) const{
+	NodoServicio* actual = primerServicio;
+	while (actual != nullptr) {
+		const Paciente* paciente = actual->servicio.buscarPorNombre(nombre);
+		if (paciente != nullptr) {
+			std::cout << "Paciente encontrado en " << actual->servicio.getNombre() << ": "
+				<< paciente->resumen() << "\n";
+			return;
+		}
+		actual = actual->siguiente;
+	}
+	std::cout << "No existe un paciente con nombre " << nombre << ".\n";
+}
+
+void Hospital::buscarPaciente(const std::string& dato) const{
+	if (isdigit(dato[0])) {
+		buscarPacientePorId(dato);
+	}
+	else {
+		buscarPacientePorNombre(dato);
+	}
+}

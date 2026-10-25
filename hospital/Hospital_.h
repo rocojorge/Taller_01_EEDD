@@ -45,4 +45,6 @@ public:
     void mostrarDepartamento(int opcion) const;
     void mostrarHistorial() const;
     void buscarPacientePorId(const std::string& id) const;
+	void buscarPacientePorNombre(const std::string& nombre) const;
+	void buscarPaciente(const std::string& dato) const;
 };
