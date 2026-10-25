@@ -261,9 +261,44 @@ void Hospital::mostrarDepartamento(int opcion) const {
         std::cout << "Departamento no valido.\n";
         return;
     }
-    const NodoServicio* actual = primerServicio;
+    NodoServicio* actual = primerServicio;
     for (int i = 1; i < opcion; ++i) actual = actual->siguiente;
-    actual->servicio.mostrarEstado();
+
+    int seleccion = 0;
+    std::cout << "\n=== OPERACIONES DEL DEPARTAMENTO ===\n";
+    std::cout << "1. Eliminar paciente\n";
+    std::cout << "2. Mostrar estado departamento\n";
+    std::cout << "0. Volver\n";
+
+    std::cin >> seleccion;
+
+    if (seleccion == 1)
+    {
+        std::string id;
+        std::cout << "ID del paciente: ";
+        std::cin >> id;
+
+        if (actual->servicio.eliminarPaciente(id))
+        {
+            std::cout << "Paciente eliminado correctamente.\n";
+        }
+        else
+        {
+            std::cout << "No existe un paciente con ese ID.\n";
+        }
+    }
+	else if (seleccion == 2)
+	{
+		actual->servicio.mostrarEstado();
+	}
+	else if (seleccion == 0)
+	{
+		return; // Volver al menú principal
+	}
+	else
+	{
+		std::cout << "Opcion no valida.\n";
+	}
 }
 
 void Hospital::mostrarHistorial() const { historial.mostrar(); }

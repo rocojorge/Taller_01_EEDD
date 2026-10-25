@@ -27,14 +27,14 @@ void Servicio::mostrarEstado() const {
         std::cout << "Sin pacientes asignados.\n";
         return;
     }
-    std::cout << "Altura del AVL: " << arbolPacientes.getAltura()
-        << " | Factor de balance de la raiz: " << arbolPacientes.getFactorBalance() << "\n";
+    std::cout << "Altura del AVL: " << this->getAltura()
+        << " | Factor de balance de la raiz: " << this->getFactorBalance() << "\n";
     std::cout << "\nInorden (ordenado por ID):\n";
-    arbolPacientes.mostrarInOrden();
+    this->mostrarInOrden();
     std::cout << "\nPreorden:\n";
-    arbolPacientes.mostrarPreOrden();
+    this->mostrarPreOrden();
     std::cout << "\nPostorden:\n";
-    arbolPacientes.mostrarPostOrden();
+    this->mostrarPostOrden();
 }
 
 bool Servicio::contieneId(const std::string& id) const {

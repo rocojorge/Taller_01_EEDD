@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
             std::string id;
             std::cout << "ID o nombre del paciente: ";
             std::getline(std::cin, id);
-            hospital.buscarPacientePorId(id);
+            hospital.buscarPaciente(id);
         }
         else if (opcion != 5) {
             std::cout << "Opcion no valida.\n";

@@ -25,5 +25,10 @@ public:
     bool contieneId(const std::string& id) const;
     const Paciente* buscarPorId(const std::string& id) const;
     const Paciente* buscarPorNombre(const std::string& nombre) const;
+	void mostrarInOrden() const { arbolPacientes.mostrarInOrden(); }
+	void mostrarPreOrden() const { arbolPacientes.mostrarPreOrden(); }
+	void mostrarPostOrden() const { arbolPacientes.mostrarPostOrden(); }
+	int getAltura() const { return arbolPacientes.getAltura(); }
+	int getFactorBalance() const { return arbolPacientes.getFactorBalance(); }
 };
 
