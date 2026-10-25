@@ -106,17 +106,20 @@ public:
     ArbolDecision();
     ~ArbolDecision();
 
-	void const preOrden(NodoDecision* nodo) const;
-	void const inOrden(NodoDecision* nodo) const;
-	void const postOrden(NodoDecision* nodo) const;
+    void preOrden(const NodoDecision* nodo) const;
+    void inOrden(const NodoDecision* nodo) const;
+    void postOrden(const NodoDecision* nodo) const;
 
     ArbolDecision(const ArbolDecision&) = delete;
     ArbolDecision& operator=(const ArbolDecision&) = delete;
 
     void construirArbol();
-    std::string clasificarPaciente(Paciente* paciente);
+    std::string clasificarPaciente(const Paciente& paciente, std::string* ruta = nullptr) const;
+    void mostrarPreOrden() const;
+    void mostrarInOrden() const;
+    void mostrarPostOrden() const;
 
-    NodoDecision* getRaiz() {
+    const NodoDecision* getRaiz() const {
         return raiz;
     }
 };

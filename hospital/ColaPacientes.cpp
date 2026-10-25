@@ -54,6 +54,15 @@ const Paciente* ColaPacientes::buscarPorId(const std::string& id) const {
     return nullptr;
 }
 
+const Paciente* ColaPacientes::buscarPorNombre(const std::string& nombre) const {
+    const NodoCola* actual = frente;
+    while (actual != nullptr) {
+        if (actual->paciente.getNombre() == nombre) return &actual->paciente;
+        actual = actual->siguiente;
+    }
+    return nullptr;
+}
+
 void ColaPacientes::mostrar() const {
     if (estaVacia()) {
         std::cout << "No hay pacientes esperando. :D\n";

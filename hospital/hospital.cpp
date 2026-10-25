@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
             << "1. Ver y atender pacientes\n"
             << "2. Ver departamento\n"
             << "3. Revisar historial de atencion\n"
-            << "4. Buscar paciente por ID\n"
+            << "4. Buscar paciente por ID o nombre\n"
             << "5. Salir\n";
         if (!leerEntero("Seleccionar opcion: ", opcion)) continue;
 
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
         }
         else if (opcion == 4) {
             std::string id;
-            std::cout << "ID del paciente: ";
+            std::cout << "ID o nombre del paciente: ";
             std::getline(std::cin, id);
             hospital.buscarPacientePorId(id);
         }

@@ -32,15 +32,53 @@ namespace {
         return servicio;
     }
 
-    bool convertirEdad(const std::string& texto, int& edad) {
+    bool convertirEntero(const std::string& texto, int minimo, int maximo, int& valor) {
         try {
+            const std::string limpio = limpiar(texto);
             std::size_t procesados = 0;
-            edad = std::stoi(limpiar(texto), &procesados);
-            return procesados == limpiar(texto).size() && edad >= 0 && edad <= 130;
+            valor = std::stoi(limpio, &procesados);
+            return procesados == limpio.size() && valor >= minimo && valor <= maximo;
         }
         catch (...) {
             return false;
         }
+    }
+
+    bool convertirReal(const std::string& texto, float minimo, float maximo, float& valor) {
+        try {
+            const std::string limpio = limpiar(texto);
+            std::size_t procesados = 0;
+            valor = std::stof(limpio, &procesados);
+            return procesados == limpio.size() && valor >= minimo && valor <= maximo;
+        }
+        catch (...) {
+            return false;
+        }
+    }
+
+    bool convertirBandera(const std::string& texto, bool& valor) {
+        const std::string limpio = limpiar(texto);
+        if (limpio == "1") { valor = true; return true; }
+        if (limpio == "0") { valor = false; return true; }
+        return false;
+    }
+
+    bool separarCampos(const std::string& linea, std::string campos[11]) {
+        std::size_t inicio = 0;
+        for (int i = 0; i < 10; ++i) {
+            const std::size_t separador = linea.find(';', inicio);
+            if (separador == std::string::npos) return false;
+            campos[i] = limpiar(linea.substr(inicio, separador - inicio));
+            inicio = separador + 1;
+        }
+        if (linea.find(';', inicio) != std::string::npos) return false;
+        campos[10] = limpiar(linea.substr(inicio));
+        return true;
+    }
+
+    bool tipoDolorValido(const std::string& tipo) {
+        return tipo == "pecho" || tipo == "cabeza" || tipo == "abdomen" ||
+            tipo == "extremidad" || tipo == "otro";
     }
 }
 
@@ -120,33 +158,48 @@ bool Hospital::cargarPacientes(const std::string& ruta) {
     std::string linea;
     int numeroLinea = 0;
     int cargados = 0;
+    int ignorados = 0;
     while (std::getline(archivo, linea)) {
         ++numeroLinea;
-        const std::size_t p1 = linea.find(';');
-        const std::size_t p2 = p1 == std::string::npos ? p1 : linea.find(';', p1 + 1);
-        const std::size_t p3 = p2 == std::string::npos ? p2 : linea.find(';', p2 + 1);
-        if (p1 == std::string::npos || p2 == std::string::npos || p3 == std::string::npos ||
-            linea.find(';', p3 + 1) != std::string::npos) {
-            if (!limpiar(linea).empty()) std::cout << "Linea " << numeroLinea << " ignorada: formato invalido.\n";
+        if (limpiar(linea).empty()) continue;
+
+        std::string campos[11];
+        if (!separarCampos(linea, campos)) {
+            std::cout << "Linea " << numeroLinea << " ignorada: se esperaban 11 campos separados por ';'.\n";
+            ++ignorados;
             continue;
         }
-        const std::string id = limpiar(linea.substr(0, p1));
-        const std::string nombre = limpiar(linea.substr(p1 + 1, p2 - p1 - 1));
-        const std::string edadTexto = linea.substr(p2 + 1, p3 - p2 - 1);
-        Servicio* servicio = buscarServicio(limpiar(linea.substr(p3 + 1)));
-        int edad = 0;
-        if (id.empty() || nombre.empty() || !convertirEdad(edadTexto, edad) || servicio == nullptr) {
-            std::cout << "Linea " << numeroLinea << " ignorada: datos invalidos.\n";
+
+        int edad = 0, dolor = 0, diasHospitalizado = 0;
+        float temperatura = 0, presion = 0;
+        bool trauma = false, neurologicos = false, requiereCirugia = false;
+        const std::string tipoDolor = normalizarServicio(campos[6]);
+        if (campos[0].empty() || campos[1].empty() ||
+            !convertirEntero(campos[2], 0, 130, edad) ||
+            !convertirReal(campos[3], 30.0f, 45.0f, temperatura) ||
+            !convertirReal(campos[4], 40.0f, 250.0f, presion) ||
+            !convertirEntero(campos[5], 0, 10, dolor) ||
+            !tipoDolorValido(tipoDolor) ||
+            !convertirBandera(campos[7], trauma) ||
+            !convertirBandera(campos[8], neurologicos) ||
+            !convertirBandera(campos[9], requiereCirugia) ||
+            !convertirEntero(campos[10], 0, 365, diasHospitalizado)) {
+            std::cout << "Linea " << numeroLinea << " ignorada: datos fuera de rango o no validos.\n";
+            ++ignorados;
             continue;
         }
-        if (espera.contieneId(id) || existePaciente(id)) {
-            std::cout << "Linea " << numeroLinea << " ignorada: ID duplicado (" << id << ").\n";
+        if (espera.contieneId(campos[0]) || existePaciente(campos[0])) {
+            std::cout << "Linea " << numeroLinea << " ignorada: ID duplicado (" << campos[0] << ").\n";
+            ++ignorados;
             continue;
         }
-        espera.encolar(Paciente(id, nombre, edad, servicio->getNombre()));
+        espera.encolar(Paciente(campos[0], campos[1], edad, temperatura, presion, dolor,
+            tipoDolor, trauma, neurologicos, requiereCirugia, diasHospitalizado));
         ++cargados;
     }
-    std::cout << cargados << " paciente(s) incorporado(s) a la cola.\n";
+    std::cout << cargados << " paciente(s) incorporado(s) a la cola";
+    if (ignorados > 0) std::cout << " | " << ignorados << " linea(s) ignorada(s)";
+    std::cout << ".\n";
     return true;
 }
 
@@ -167,13 +220,23 @@ void Hospital::atenderPacientes(int cantidad) {
     std::cout << "\n=== ATENDIENDO PACIENTES ===\n";
     int atendidos = 0;
     while (atendidos < cantidad && !espera.estaVacia()) {
-        Paciente paciente("", "", 0, "");
+        Paciente paciente;
         espera.desencolar(paciente);
-        Servicio* servicio = buscarServicio(paciente.getServicio());
+        std::string ruta;
+        const std::string nombreServicio = arbolDecision.clasificarPaciente(paciente, &ruta);
+        Servicio* servicio = buscarServicio(nombreServicio);
         if (servicio != nullptr) {
-            servicio->agregarPaciente(paciente);
+            paciente.setServicio(servicio->getNombre());
+            if (!servicio->agregarPaciente(paciente)) {
+                std::cout << "No se pudo insertar " << paciente.getId() << ": ID duplicado en el AVL.\n";
+                ++atendidos;
+                continue;
+            }
             historial.apilar(paciente);
-            std::cout << paciente.resumen() << " -> enviado a " << servicio->getNombre() << ".\n";
+            std::cout << paciente.resumen() << " -> " << servicio->getNombre() << ".\n"
+                << "  Ruta: " << ruta << '\n';
+        } else {
+            std::cout << "No se pudo clasificar " << paciente.getId() << ".\n";
         }
         ++atendidos;
     }
@@ -207,6 +270,7 @@ void Hospital::mostrarHistorial() const { historial.mostrar(); }
 
 void Hospital::buscarPacientePorId(const std::string& id) const {
     const Paciente* paciente = espera.buscarPorId(id);
+    if (paciente == nullptr) paciente = espera.buscarPorNombre(id);
     if (paciente != nullptr) {
         std::cout << "Paciente encontrado en la cola de espera: " << paciente->resumen() << "\n";
         return;
@@ -214,6 +278,7 @@ void Hospital::buscarPacientePorId(const std::string& id) const {
     const NodoServicio* actual = primerServicio;
     while (actual != nullptr) {
         paciente = actual->servicio.buscarPorId(id);
+        if (paciente == nullptr) paciente = actual->servicio.buscarPorNombre(id);
         if (paciente != nullptr) {
             std::cout << "Paciente encontrado en " << actual->servicio.getNombre() << ": "
                 << paciente->resumen() << "\n";

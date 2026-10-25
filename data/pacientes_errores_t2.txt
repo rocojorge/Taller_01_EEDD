@@ -1,0 +1,11 @@
+201;Paciente Valido;34;36.8;120;4;otro;0;0;0;1
+202;Edad Negativa;-2;36.8;120;4;otro;0;0;0;1
+203;Temperatura Alta;25;49.0;120;4;otro;0;0;0;1
+204;Presion Invalida;25;36.8;300;4;otro;0;0;0;1
+205;Dolor Invalido;25;36.8;120;15;otro;0;0;0;1
+206;Tipo Invalido;25;36.8;120;4;lumbar;0;0;0;1
+207;Bandera Invalida;25;36.8;120;4;otro;si;0;0;1
+208;Dias Negativos;25;36.8;120;4;otro;0;0;0;-1
+201;ID Duplicado;44;36.8;120;4;otro;0;0;0;1
+209;Campos Insuficientes;30;36.8;120;4;otro;0;0
+210;Campos;De;Mas;30;36.8;120;4;otro;0;0;0;1;extra

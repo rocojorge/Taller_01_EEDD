@@ -7,7 +7,7 @@
 class Paciente : public Persona {
 private:
     std::string id;
-    //std::string servicio; Eliminacion del atributo
+    std::string servicio;
     float temperatura;
     float presionArterial;
     int dolor;
@@ -30,7 +30,7 @@ public:
         bool requiereCirugia, int diasHospitalizado);
 
     const std::string& getId() const;
-    //const std::string& getServicio() const;
+    const std::string& getServicio() const;
     std::string resumen() const override;
 	bool getTrauma() const;
 	bool getSintomasNeurologicos() const;
@@ -40,5 +40,7 @@ public:
 	int getDolor() const;
 	const std::string& getTipoDolor() const;
 	int getDiasHospitalizado() const;
+    void setServicio(const std::string& nuevoServicio);
+    void mostrarDetalle() const;
 
 };

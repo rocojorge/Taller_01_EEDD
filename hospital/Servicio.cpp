@@ -2,41 +2,39 @@
 
 #include <iostream>
 
-Servicio::Servicio(const std::string& nombre)
-    : nombre(nombre), primero(nullptr), ultimo(nullptr), cantidad(0) {}
-
-Servicio::~Servicio() {
-    while (primero != nullptr) {
-        NodoPaciente* eliminado = primero;
-        primero = primero->siguiente;
-        delete eliminado;
-    }
-    ultimo = nullptr;
-    cantidad = 0;
-}
+Servicio::Servicio(const std::string& nombre) : nombre(nombre), cantidad(0) {}
+Servicio::~Servicio() = default;
 
 const std::string& Servicio::getNombre() const { return nombre; }
 int Servicio::size() const { return cantidad; }
 
-void Servicio::agregarPaciente(const Paciente& paciente) {
-    //arbolPacientes.insertar(paciente); EN construcción
-  
+bool Servicio::agregarPaciente(const Paciente& paciente) {
+    if (!arbolPacientes.insertar(paciente)) return false;
     ++cantidad;
+    return true;
+}
+
+bool Servicio::eliminarPaciente(const std::string& id) {
+    if (!arbolPacientes.eliminar(id)) return false;
+    --cantidad;
+    return true;
 }
 
 void Servicio::mostrarEstado() const {
     std::cout << "\n=== ESTADO " << nombre << " ===\n";
     std::cout << "Pacientes en el departamento: " << cantidad << '\n';
-    if (primero == nullptr) {
+    if (arbolPacientes.estaVacio()) {
         std::cout << "Sin pacientes asignados.\n";
         return;
     }
-    const NodoPaciente* actual = primero;
-    while (actual != nullptr) {
-        std::cout << "- " << actual->paciente.getNombre() << " ("
-            << actual->paciente.getEdad() << ")\n";
-        actual = actual->siguiente;
-    }
+    std::cout << "Altura del AVL: " << arbolPacientes.getAltura()
+        << " | Factor de balance de la raiz: " << arbolPacientes.getFactorBalance() << "\n";
+    std::cout << "\nInorden (ordenado por ID):\n";
+    arbolPacientes.mostrarInOrden();
+    std::cout << "\nPreorden:\n";
+    arbolPacientes.mostrarPreOrden();
+    std::cout << "\nPostorden:\n";
+    arbolPacientes.mostrarPostOrden();
 }
 
 bool Servicio::contieneId(const std::string& id) const {
@@ -44,13 +42,9 @@ bool Servicio::contieneId(const std::string& id) const {
 }
 
 const Paciente* Servicio::buscarPorId(const std::string& id) const {
-    const NodoPaciente* actual = primero;
-    while (actual != nullptr) {
-        if (actual->paciente.getId() == id) return &actual->paciente;
-        actual = actual->siguiente;
-    }
-    return nullptr;
+    return arbolPacientes.buscarPorId(id);
 }
-bool Servicio::estaVacio() const { 
-    return primero == nullptr; 
+const Paciente* Servicio::buscarPorNombre(const std::string& nombre) const {
+    return arbolPacientes.buscarPorNombre(nombre);
 }
+bool Servicio::estaVacio() const { return arbolPacientes.estaVacio(); }

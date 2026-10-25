@@ -1,14 +1,16 @@
 #pragma once
 #include "Paciente.h"
 class NodoAVL {
-	Paciente* paciente;
+	Paciente paciente;
 	NodoAVL* izquierda;
 	NodoAVL* derecha;
 	int altura;
 public:
-	NodoAVL(Paciente* paciente)
+	NodoAVL(const Paciente& paciente)
 		: paciente(paciente), izquierda(nullptr), derecha(nullptr), altura(1) {}
-	Paciente* getPaciente() const { return paciente; }
+	Paciente& getPaciente() { return paciente; }
+	const Paciente& getPaciente() const { return paciente; }
+	void setPaciente(const Paciente& nuevoPaciente) { paciente = nuevoPaciente; }
 	NodoAVL* getIzquierda() const { return izquierda; }
 	NodoAVL* getDerecha() const { return derecha; }
 	int getAltura() const { return altura; }

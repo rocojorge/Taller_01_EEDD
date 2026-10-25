@@ -11,7 +11,7 @@ ArbolDecision::~ArbolDecision() {
     raiz = nullptr;
 }
 
-void const ArbolDecision::preOrden(NodoDecision* nodo) const{
+void ArbolDecision::preOrden(const NodoDecision* nodo) const {
     if (nodo == nullptr) return;
     if (nodo->esHoja()) 
 		std::cout << nodo->getServicio() << std::endl;
@@ -21,7 +21,7 @@ void const ArbolDecision::preOrden(NodoDecision* nodo) const{
 	preOrden(nodo->getNo());    
 }
 
-void const ArbolDecision::inOrden(NodoDecision* nodo) const{
+void ArbolDecision::inOrden(const NodoDecision* nodo) const {
 	if (nodo == nullptr) return;
 	inOrden(nodo->getSi());
 	if (nodo->esHoja())
@@ -31,7 +31,7 @@ void const ArbolDecision::inOrden(NodoDecision* nodo) const{
 	inOrden(nodo->getNo());
 }
 
-void const ArbolDecision::postOrden(NodoDecision* nodo) const {
+void ArbolDecision::postOrden(const NodoDecision* nodo) const {
     if (nodo == nullptr) return;
     postOrden(nodo->getSi());
     postOrden(nodo->getNo());
@@ -120,15 +120,16 @@ void ArbolDecision::construirArbol() {
     );
 }
 
-std::string ArbolDecision::clasificarPaciente(Paciente* paciente) {
-    if (paciente == nullptr) {
-        return "";
-    }
-
-    NodoDecision* actual = raiz;
+std::string ArbolDecision::clasificarPaciente(const Paciente& paciente, std::string* ruta) const {
+    const NodoDecision* actual = raiz;
+    if (ruta != nullptr) ruta->clear();
 
     while (actual != nullptr && !actual->esHoja()) {
-        bool respuesta = actual->evaluar(*paciente);
+        const bool respuesta = actual->evaluar(paciente);
+        if (ruta != nullptr) {
+            if (!ruta->empty()) *ruta += " -> ";
+            *ruta += actual->getPregunta() + (respuesta ? " [Si]" : " [No]");
+        }
 
         if (respuesta) {
             actual = actual->getSi();
@@ -144,3 +145,7 @@ std::string ArbolDecision::clasificarPaciente(Paciente* paciente) {
 
     return actual->getServicio();
 }
+
+void ArbolDecision::mostrarPreOrden() const { preOrden(raiz); }
+void ArbolDecision::mostrarInOrden() const { inOrden(raiz); }
+void ArbolDecision::mostrarPostOrden() const { postOrden(raiz); }

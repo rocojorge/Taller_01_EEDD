@@ -5,18 +5,7 @@
 
 class Servicio {
 private:
-    class NodoPaciente {
-    public:
-        Paciente paciente;
-        NodoPaciente* siguiente;
-
-        explicit NodoPaciente(const Paciente& paciente)
-            : paciente(paciente), siguiente(nullptr) {}
-    };
-
     std::string nombre;
-    //NodoPaciente* primero;
-    //NodoPaciente* ultimo;
     AVL arbolPacientes;
     int cantidad;
     
@@ -30,9 +19,11 @@ public:
     bool estaVacio() const;
     const std::string& getNombre() const;
     int size() const;
-    void agregarPaciente(const Paciente& paciente);
+    bool agregarPaciente(const Paciente& paciente);
+    bool eliminarPaciente(const std::string& id);
     void mostrarEstado() const;
     bool contieneId(const std::string& id) const;
     const Paciente* buscarPorId(const std::string& id) const;
+    const Paciente* buscarPorNombre(const std::string& nombre) const;
 };
 

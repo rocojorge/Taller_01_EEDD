@@ -29,5 +29,6 @@ public:
     int size() const;
     bool contieneId(const std::string& id) const;
     const Paciente* buscarPorId(const std::string& id) const;
+    const Paciente* buscarPorNombre(const std::string& nombre) const;
     void mostrar() const;
 };
