@@ -1,4 +1,4 @@
-# Taller 1 - Hospital Marmaja
+# Taller 2 - Hospital Marmaja
 
 # Integrantes
 Gabriel Melero Montero 40017058-4 @rocojorge ICCI
