@@ -6,7 +6,7 @@ Gabriel Melero Montero 40017058-4 @rocojorge ICCI
 # Requisitos a realizar:
 
 - Cola FIFO de pacientes, implementada manualmente con nodos y punteros.
-- AVL balanceado de servicios y un AVL balanceado de pacientes por servicio.
+- Lista enlazada de servicios y un AVL balanceado de pacientes por servicio.
 - Pila LIFO de atenciones con nodos y punteros.
 - Herencia: `Paciente` hereda de `Persona`.
 - Carga desde archivo, validacion de registros, control de duplicados y liberacion de memoria.
@@ -66,7 +66,7 @@ hospital/
 	└── .gitignore
 ```
 
-
+# Compilación y ejecución
 #Para poder abrir del tirón el archivo de pacientes.txt, se debe hardcodear la ruta en el terminal. 
 Habría que compilar el proyecto con CMake y luego ejecutar el binario generado.
 Con VS Community, se abrir el proyecto y compilarlo desde el IDE.
